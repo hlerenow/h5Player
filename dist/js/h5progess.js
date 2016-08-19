@@ -1,313 +1,302 @@
+var h5Progess = (function() {
+    "use strict";
 
-var h5Progess=(function(){
-
-
-    var h5Progess=function(args){
-            return new h5Progess.prototype.init(args); 
+    var h5Progess = function(args) {
+        return new h5Progess.prototype.init(args);
     };
 
 
-    var fn=h5Progess.prototype;
+    var fn = h5Progess.prototype;
 
-        fn.mouseX=0;
-        fn.mouseY=0;    
-        
-        fn.addEvent=function(el,event,func){
-             if(el.attachEvent){
-                 el.attachEvent("on"+event,func);
-             }else{
-                 el.addEventListener(event,func);
-             }
-         };
+    fn.mouseX = 0;
+    fn.mouseY = 0;
+    fn.idNum = 0;
+    fn.deviceType=0;
 
-         fn.removeEvent=function(el,event,func){
-             if(el.detachEvent){
-                 el.detachEvent("on"+event,func);
-             }else{
-                 el.removeEventListener(event,func);
-             }
-         };
-
-         fn.selectChild=function(pe,el){
-
-            var allEl=pe.childNodes;
-            var i=0;
-            for(i=0;i<allEl.length;i=i+1){
-                if(allEl[i].nodeType===1){
-                    if(allEl[i].id===el){
-                        return allEl[i];
-                    }
-                }
+    function chekOutValue(self){
+        var timeHandle=setTimeout(function(){
+            if(parseInt(self._pf.style.width)===self._nowProgessPosPx){
+                return;                
+            }else{
+                self._nowProgessPosPx=parseInt(self._pf.style.width);
             }
-            return null;
-         };
+        },100);
+    };
 
-         fn.currenStyleFactort=function(el,attr){
-            var elT=el
-            if((typeof el)==="string"){
-                elT=document.querySelector(el);
-            }
-            var style=window.getComputedStyle?window.getComputedStyle(elT,false):elT.currentStyle;
-            return style[attr];
-         };
+    fn.browserType = function() {
 
-         fn.init=function(args){
+        var sUserAgent = navigator.userAgent.toLowerCase(),
+            bIsIpad = sUserAgent.match(/ipad/i) == 'ipad',
+            bIsIphone = sUserAgent.match(/iphone os/i) == 'iphone os',
+            bIsMidp = sUserAgent.match(/midp/i) == 'midp',
+            bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == 'rv:1.2.3.4',
+            bIsUc = sUserAgent.match(/ucweb/i) == 'web',
+            bIsCE = sUserAgent.match(/windows ce/i) == 'windows ce',
+            bIsWM = sUserAgent.match(/windows mobile/i) == 'windows mobile';
 
-            this._domID=args["pid"]||"";
-            this._dom=document.getElementById(this._domID);
+        if (bIsIpad || bIsIphone || bIsMidp || bIsUc7 || bIsUc || bIsCE || bIsWM) {
+            return 1;
+        } else {
+            return 0;
+        }
+    };
+    function initEventPc(self) {
 
-            if(!this._dom){
-                console.log(this._dom);            
-                throw new Error("元素不存在");                
-            }                
+        function dotMove(e) {
+            console.log("move");            
+            var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);
 
-            this._pSize=args["pSize"]||3;
-            this._pWidth=args["width"]||100;
-            this._dotSize=args["dotSize"]||10;
-            this._pDotColor="";
-            this._pBgColor="";
-            this._pFwColor="";
- 
-            this._nowProgessPos=parseInt(args["pos"])||0.5;
-            this._nowProgessPosPx=this._nowProgessPos*this._pWidth;
-
-            this._pf=fn.selectChild(this._dom,"processbody-fw");
-            this._bg=fn.selectChild(this._dom,"processbody-bg");
-            this._dot=fn.selectChild(this._pf,"processDot");   
-
-            var self=this;        
-
-            // 初始化样式
-
-            this._dom.style.cursor="pointer";
-            this._dom.style.overflow="hidden";
-            this._dom.style.width=this._pWidth+"px";
-            this._dom.style.padding="0 "+Math.round(this._dotSize/2)+"px";
-
-            this._bg.style.height=this._pSize+"px";
-            this._pf.style.height=this._pSize+"px";
-
-            this._bg.style.margin=Math.round((this._dotSize-this._pSize)/2)+1+"px 0";
-            this._pf.style.top=Math.round((this._dotSize-this._pSize)/2)+"px";
-
-            this._dot.style.width=this._dotSize+"px";
-            this._dot.style.height=this._dotSize+"px";
-            this._dot.style.borderRadius=this._dotSize/2+"px";
-            this._dot.style.top=-(this._dotSize-this._pSize)/2+"px";
-            this._dot.style.right=-(this._dotSize)/2+"px";
-
-            // ui初始化
-            fn.showPos.call(self,parseInt(this._nowProgessPosPx));
-
-            //事件初始化
-            // pc
-
-            // fn.addEvent(self._dot,"mousedown",dotPress);
-
-
-            // fn.addEvent(self._dom,"mouseup",function(e){
-            //     self._nowProgessPosPx=parseInt(fn.currenStyleFactort(self._pf,"width"));
-            //     fn.removeEvent(document,"mousemove",dotMove);
-            // });            
-
-            // fn.addEvent(document,"mouseup",function(e){
-            //     self._nowProgessPosPx=parseInt(fn.currenStyleFactort(self._pf,"width"));
-            //     fn.removeEvent(document,"mousemove",dotMove);
-            // });            
-
-            // function dotPress(e){
-            //     if(e.which===3)
-            //         return ;
-            //     fn.mouseX=e.clientX;
-            //     fn.addEvent(document,"mousemove",dotMove);
-            // }
-
-            // function dotMove(e){
-
-            //     var posPx=parseInt(self._nowProgessPosPx)+(e.clientX-fn.mouseX);
-
- 
-            //     if(posPx>parseInt(self._pWidth)){
-            //         posPx=parseInt(self._pWidth);
-            //     }else if(posPx<0){
-            //         posPx=0;
-            //     }
-
-            //     fn.showPos.call(self,posPx);
-            // }
-
-
-            //mobile
-
-            fn.addEvent(self._dot,"touchstart",dotTouchStart);
-
-            function dotTouchStart(e){
-                var touch;
-                console.log(e);
-                if(e.changedTouches.length===1){
-                    touch=e.changedTouches[0];
-                }else{
-                    return;
-                }
-
-                fn.mouseX=touch.clientX;
-                fn.addEvent(document,"touchmove",dotTouchMove);
-
-               // console.log(touch);
-
+            if (posPx > parseInt(self._pWidth)) {
+                posPx = parseInt(self._pWidth);
+            } else if (posPx < 0) {
+                posPx = 0;
             }
 
-            fn.addEvent(self._dom,"touchend",function(e){
-                self._nowProgessPosPx=parseInt(fn.currenStyleFactort(self._pf,"width"));
-                fn.removeEvent(document,"touchmove",dotTouchMove);
-            });            
+            fn.showPos.call(self, posPx);
+        }
 
-            fn.addEvent(document,"touchend",function(e){
-                self._nowProgessPosPx=parseInt(fn.currenStyleFactort(self._pf,"width"));
-                fn.removeEvent(document,"touchmove",dotTouchMove);
-            });            
+        function dotPress(e) {
+            console.log("press");
+            if (e.which === 3){
+                return;                
+            }
 
-            function dotTouchMove(e){
+            self.eventSate = 1;
+            fn.mouseX = e.clientX;
+            fn.addEvent(document, "mousemove", dotMove);
+        }
 
-                e=e.changedTouches[0];
-                var posPx=parseInt(self._nowProgessPosPx)+(e.clientX-fn.mouseX);
 
- 
-                if(posPx>parseInt(self._pWidth)){
-                    posPx=parseInt(self._pWidth);
-                }else if(posPx<0){
-                    posPx=0;
-                }
+        fn.addEvent(self._dot, "mousedown", dotPress);
 
-                fn.showPos.call(self,posPx);
+
+        fn.addEvent(self._dom, "mouseup", function() {
+            self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));                
+            chekOutValue(self);
+
+            fn.removeEvent(document, "mousemove", dotMove);
+        });
+
+        fn.addEvent(document, "mouseup", function() {
+            self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
+           
+            if (self.eventSate === 1) {
+                self._afterEven(self._nowProgessPosPx / self._pWidth);
+                self.eventSate = 0;
+            }
+
+            fn.removeEvent(document, "mousemove", dotMove);
+        });
+
+    }
+
+    function initEventMb(self) {
+
+        function dotTouchMove(e) {
+
+            e = e.changedTouches[0];
+            var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);
+
+            if (posPx > parseInt(self._pWidth)) {
+                posPx = parseInt(self._pWidth);
+            } else if (posPx < 0) {
+                posPx = 0;
+            }
+
+            fn.showPos.call(self, posPx);
+        }
+
+        function dotTouchStart(e) {
+            var touch;
+            if (e.changedTouches.length === 1) {
+                touch = e.changedTouches[0];
+            } else {
+                return;
+            }
+
+            console.log(touch);
+            self.eventSate = 1;
+
+            fn.mouseX = touch.clientX;
+            fn.addEvent(document, "touchmove", dotTouchMove);
+        }
+
+        fn.addEvent(self._dot, "touchstart", dotTouchStart);
+
+
+        fn.addEvent(self._dom, "touchend", function() {
+            self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
+            chekOutValue(self);
+            if (self.eventSate === 1) {
+                self._afterEven(self._nowProgessPosPx / self._pWidth);
+                self.eventSate = 0;
             }            
+            fn.removeEvent(document, "touchmove", dotTouchMove);
+        });
 
-            return this;
-         };
+        fn.addEvent(document, "touchend", function() {
+            self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
+            if (self.eventSate === 1) {
+                self._afterEven(self._nowProgessPosPx / self._pWidth);
+                self.eventSate = 0;
+            }
+            fn.removeEvent(document, "touchmove", dotTouchMove);
+        });
 
-        fn.init.prototype=h5Progess.prototype;
-
-
-        fn.setPos=function(x){
-                this._nowProgessPos=x;
-                this._nowProgessPosPx=this._nowProgessPos*this._pWidth;
-                this.showPos(this._nowProgessPosPx);
-                return this;
-         };
-
-        fn.getPos=function(){
-             return this._nowProgessPos;
-         };
+        //endMobile        
+    }
 
 
-         fn.showPos=function(xs){
-            //console.log("wode "+xs);          
-            this._pf.style.width=xs+"px";
-         };
+    fn.addEvent = function(el, event, func) {
+        if (el.attachEvent) {
+            el.attachEvent("on" + event, func);
+        } else {
+            el.addEventListener(event, func);
+        }
+    };
 
-         return  h5Progess;
+    fn.removeEvent = function(el, event, func) {
+        if (el.detachEvent) {
+            el.detachEvent("on" + event, func);
+        } else {
+            el.removeEventListener(event, func);
+        }
+    };
+
+    fn.selectChild = function(pe, el) {
+
+        var allEl = pe.childNodes;
+        var i = 0;
+        for (i = 0; i < allEl.length; i = i + 1) {
+            if (allEl[i].nodeType === 1) {
+                if (allEl[i].id === el) {
+                    return allEl[i];
+                }
+            }
+        }
+        return null;
+    };
+
+    fn.currenStyleFactort = function(el, attr) {
+        var elT = el;
+        if ((typeof el) === "string") {
+            elT = document.querySelector(el);
+        }
+        var style = window.getComputedStyle ? window.getComputedStyle(elT, false) : elT.currentStyle;
+        return style[attr];
+    };
+
+
+
+    fn.setPos = function(x) {
+        this._nowProgessPos = x;
+        this._nowProgessPosPx = this._nowProgessPos * this._pWidth;
+        this.showPos(this._nowProgessPosPx);
+        return this;
+    };
+
+    fn.getPos = function() {
+        return this._nowProgessPos;
+    };
+
+
+    fn.showPos = function(xs) {
+        console.log("showPos:"+xs);
+        this._pf.style.width = xs + "px";
+    };
+
+    fn.afterStop=function(func){
+        this._afterEven=func;
+        return this;
+    };
+
+    fn.init = function(args) {
+
+        this._afterEven=function(){};
+        this._domID = args.pid || "";
+        this._dom = document.getElementById(this._domID);
+
+        if (!this._dom) {
+            console.log(this._dom);
+            throw new Error("元素不存在");
+        }
+
+        this._dom.className = "processbody-con";
+
+        //初始化html
+        this.eventSate=0;
+        this.idNum = fn.idNum;
+        fn.idNum = this.idNum + 1;
+        this.tempHtml = '    <div id="processbody-bg' + this.idNum + '" class="processbody-bg"></div>' +
+            '    <div id="processbody-fw' + this.idNum + '" class="processbody-fw">' +
+            '        <div id="processDot' + this.idNum + '" class="processDot"></div>' +
+            '    </div>';
+
+        this._dom.innerHTML = this.tempHtml;
+
+
+        this._pSize = args.pSize || 3;
+        this._pWidth = args.width || 100;
+        this._dotSize = args.dotSize|| 10;
+        this._pDotColor = "";
+        this._pBgColor = "";
+        this._pFwColor = "";
+
+        this._nowProgessPos = parseInt(args.pos) || 0.5;
+
+
+        this._pf = fn.selectChild(this._dom, "processbody-fw" + this.idNum);
+        this._bg = fn.selectChild(this._dom, "processbody-bg" + this.idNum);
+        this._dot = fn.selectChild(this._pf, "processDot" + this.idNum);
+
+        var self = this;
+
+        // 初始化样式
+
+        this._dom.style.cursor = "pointer";
+        this._dom.style.overflow = "hidden";
+        this._dom.style.width = (typeof this._pWidth)==="string"?this._pWidth:(parseInt(this._pWidth) + "px");
+        //计算现在的宽度;
+        console.log(fn.currenStyleFactort(this._bg,"width")+"now width");
+        this._pWidth=parseInt(fn.currenStyleFactort(this._dom,'width'))-this._dotSize;
+
+        this._nowProgessPosPx = this._nowProgessPos * this._pWidth;
+
+        console.log("now Width :"+this._pWidth);
+        this._dom.style.padding = "0 " + Math.round(this._dotSize / 2) + "px";
+
+        this._bg.style.height = this._pSize + "px";
+        this._pf.style.height = this._pSize + "px";
+
+        this._bg.style.margin = Math.round((this._dotSize - this._pSize) / 2) + 1 + "px 0";
+        this._pf.style.top = Math.round((this._dotSize - this._pSize) / 2) + "px";
+
+        this._dot.style.width = this._dotSize + "px";
+        this._dot.style.height = this._dotSize + "px";
+        this._dot.style.borderRadius = this._dotSize / 2 + "px";
+        this._dot.style.top = -(this._dotSize - this._pSize) / 2 + "px";
+        this._dot.style.right = -(this._dotSize) / 2 + "px";
+
+        // ui初始化
+        console.log("ui");
+        fn.showPos.call(self, parseInt(this._nowProgessPosPx));
+
+        //事件初始化
+
+        var deviceType=fn.browserType();
+
+        if(deviceType===0){
+            // pc
+            initEventPc(self);
+        }else if(deviceType===1){
+            //mobile
+            console.log("mb");
+            initEventMb(self);
+        }
+        return this;
+    };
+
+    fn.init.prototype = h5Progess.prototype;
+
+    return h5Progess;
 })();
-
-
-
-
-// var h5Progess=(function(){
-// 	"use strict";
-
-
-//      /**
-//       * 获取坐标相对指定容器的位置
-//       * @param e
-//       * @param pDom
-//       * @returns {{x: number, y: number}}
-//       */
-//      function getMouseRelativePos(e){
-//         //console.log(e);
-//         alert(e.offsetX+":"+e.offsetY);
-//      };
-
-//     function getRelativePos(el,par,e){
-
-//     }
-
-
-//     /**
-//      * 添加dom事件
-//      * @param el
-//      * @param event
-//      * @param func
-//      */
-//      function addEvent(el,event,func){
-//          if(el.attachEvent){
-//              el.attachEvent("on"+event,func);
-//          }else{
-//              el.addEventListener(event,func);
-//          }
-//      };
-//     /**
-//      * 移除事件
-//      * @param el
-//      * @param event
-//      * @param func
-//      */
-//      function removeEvent(el,event,func){
-//          if(el.detach){
-//              el.detachEvent("on"+event,func);
-//          }else{
-//              el.removeEventListener(event,func);
-//          }
-//      }
-
-// 	var h5Progess=function(args){
-//         if(!(this instanceof h5Progess)){
-//             return new h5Progess();
-//         }
-
-
-//      };
-
-//     var fn=h5Progess.prototype;
-
-//         fn.init=function(args){
-
-//          function newInstance(args){
-//             console.log(this instanceof newInstance);
-//             this._domID=args["pid"]||"";
-//             this._pSize="";
-//             this._pWidth="";
-//             this._dotSize="";
-//             this._pDotColor="";
-//             this._pBgColor="";
-//             this._pFwColor="";
-//             this._nowProgessPos=args["pos"]||0;
-//             this._dom=document.getElementById(this._domID);
-
-//              addEvent(this._dom,"click",function(e){
-//                  getMouseRelativePos(e);
-//              });
-
-
-//              var el = document.querySelector("#"+this._domID);
-
-//              console.log("2:"+el.offsetLeft, el.offsetTop);
-//         }
-
-//         newInstance.prototype=fn;
-//         delete newInstance.prototype.init;
-//         return new newInstance(args);
-//     };
-
-//     fn.setPos=function(x){
-//             this._nowProgessPos=x;
-//             return this;
-//      };
-
-//     fn.getPos=function(){
-//          return this._nowProgessPos;
-//      };
-
-//     return h5Progess(args);
-
-// })();
-
-// h5Progess({"pid":"processbody-con"});

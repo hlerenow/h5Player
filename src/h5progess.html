@@ -3,27 +3,26 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>HL</title>
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />           
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />           
 		<link rel="stylesheet" href="styles/index.css">
 	</head>
 	<body>
     <div style="margin-top:100px;">
     <div style="">
-<div id="processbody-con" class="">
+        <div id="processbody-con" >
 
-</div>
-        <div id="processbody-con2" width="100px">
-            <div id="processbody-bg"></div>
-            <div id="processbody-fw">
-                <div id="processDot"></div>
-            </div>
+        </div>
+        <div id="processbody-con2">
+
         </div>        
     </div>
     </div>
 	</body>
 	<script type="text/javascript" src="js/h5progess.js"></script>
     <script type="text/javascript">
-        h5Progess({pid:"processbody-con",width:"100",dotSize:16,pSize:4});
-        h5Progess({pid:"processbody-con2",width:"100",dotSize:16,pSize:4});        
+        h5Progess({pid:"processbody-con",width:"300",dotSize:16,pSize:4}).afterStop(function(x){
+        
+        });
+      
     </script>
 </html>

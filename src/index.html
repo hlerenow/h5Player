@@ -84,10 +84,7 @@
                         </div>
                         <div id="totalTime">4:30</div>                        
                         <div id="processbody-con">
-                        	<div id="processbody-bg"></div>
-                        	<div id="processbody-fw">
-                        		<div id="processDot"></div>
-                        	</div>                            
+                        
                         </div>
 
                     </div>
@@ -141,10 +138,12 @@
 			<audio   src="http://www.internetke.com/jsEffects/2014101006/mp3/The%20Dawn.mp3"></audio>
 		</div>
 	</body>
-<script type="text/javascript">
-
-
-
-</script>
+	<script type="text/javascript" src="js/h5progess.js"></script>
+    <script type="text/javascript">
+        h5Progess({pid:"processbody-con",width:"auto",dotSize:16,pSize:4}).afterStop(function(x){
+        
+        });
+      
+    </script>
 </html>
  

@@ -60,15 +60,16 @@ var gulp=require("gulp"),
 		});			
 	});
 
-	gulp.task("watch",function(){
+	gulp.task("watch1",function(){
 
 		// css 加前缀
 		gulp.watch("src/less/*.less",['style-pre']);
+		gulp.watch("src/js/*.js",['jshint']);
 
 		// 
 	});
 
-	gulp.task("serve",['style-pre','jshint','brower','watch','bowserSync'])
+	gulp.task("serve",['style-pre','jshint','brower','watch1','bowserSync'])
 	gulp.task("default",function(){
 		gulp.start("serve");
 		console.log("server start");
