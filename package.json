@@ -1,0 +1,27 @@
+{
+  "name": "h5player",
+  "version": "1.0.0",
+  "description": "\"一个基于H5制作的音乐播放器。\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hlerenow",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.14.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^1.11.1",
+    "gulp-less": "^3.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0"
+  },
+  "dependencies": {
+    "wiredep": "^4.0.0"
+  }
+}
