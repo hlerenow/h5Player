@@ -11,7 +11,7 @@ var h5Progess = (function() {
     fn.mouseX = 0;
     fn.mouseY = 0;
     fn.idNum = 0;
-    fn.deviceType=0;
+    fn.deviceType=0;//0 pc , 1 mb;
 
     function chekOutValue(self){
         var timeHandle=setTimeout(function(){
@@ -43,7 +43,8 @@ var h5Progess = (function() {
     function initEventPc(self) {
 
         function dotMove(e) {
-            console.log("move");            
+            e.preventDefault();
+            e.stopPropagation();                   
             var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);
 
             if (posPx > parseInt(self._pWidth)) {
@@ -52,15 +53,23 @@ var h5Progess = (function() {
                 posPx = 0;
             }
 
+            self._afterChangedEven(posPx/self._pWidth);            
             fn.showPos.call(self, posPx);
         }
 
         function dotPress(e) {
-            console.log("press");
+            e.preventDefault();
+            e.stopPropagation();
+            var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);   
+                     
+            if(parseInt(self._pf.style.width)!==self._nowProgessPosPx){
+                self._nowProgessPosPx=parseInt(self._pf.style.width);
+            } 
+
             if (e.which === 3){
                 return;                
             }
-
+            self._afterPressEven(posPx/self._pWidth);
             self.eventSate = 1;
             fn.mouseX = e.clientX;
             fn.addEvent(document, "mousemove", dotMove);
@@ -74,6 +83,7 @@ var h5Progess = (function() {
             self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));                
             chekOutValue(self);
 
+            self._afterStopEven(self._nowProgessPosPx / self._pWidth);            
             fn.removeEvent(document, "mousemove", dotMove);
         });
 
@@ -81,7 +91,7 @@ var h5Progess = (function() {
             self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
            
             if (self.eventSate === 1) {
-                self._afterEven(self._nowProgessPosPx / self._pWidth);
+                self._afterStopEven(self._nowProgessPosPx / self._pWidth);
                 self.eventSate = 0;
             }
 
@@ -93,6 +103,8 @@ var h5Progess = (function() {
     function initEventMb(self) {
 
         function dotTouchMove(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
             e = e.changedTouches[0];
             var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);
@@ -102,19 +114,28 @@ var h5Progess = (function() {
             } else if (posPx < 0) {
                 posPx = 0;
             }
-
+            self._afterChangedEven(posPx/self._pWidth);
             fn.showPos.call(self, posPx);
         }
 
         function dotTouchStart(e) {
             var touch;
+            var posPx = parseInt(self._nowProgessPosPx) + (e.clientX - fn.mouseX);            
+
+            e.preventDefault();
+            e.stopPropagation();
+            if(parseInt(self._pf.style.width)!==self._nowProgessPosPx){
+                self._nowProgessPosPx=parseInt(self._pf.style.width);
+            } 
+
             if (e.changedTouches.length === 1) {
                 touch = e.changedTouches[0];
             } else {
                 return;
             }
 
-            console.log(touch);
+            self._afterPressEven(posPx/self._pWidth);
+            
             self.eventSate = 1;
 
             fn.mouseX = touch.clientX;
@@ -124,15 +145,17 @@ var h5Progess = (function() {
         fn.addEvent(self._dot, "touchstart", dotTouchStart);
 
 
-        fn.addEvent(self._dom, "touchend", function() {
+        fn.addEvent(self._dot, "touchend", function() {
             self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
             chekOutValue(self);
             if (self.eventSate === 1) {
-                self._afterEven(self._nowProgessPosPx / self._pWidth);
+                self._afterStopEven(self._nowProgessPosPx / self._pWidth);
                 self.eventSate = 0;
             }            
             fn.removeEvent(document, "touchmove", dotTouchMove);
         });
+
+
 
         fn.addEvent(document, "touchend", function() {
             self._nowProgessPosPx = parseInt(fn.currenStyleFactort(self._pf, "width"));
@@ -143,7 +166,8 @@ var h5Progess = (function() {
             fn.removeEvent(document, "touchmove", dotTouchMove);
         });
 
-        //endMobile        
+        //endMobile      
+
     }
 
 
@@ -201,19 +225,40 @@ var h5Progess = (function() {
 
 
     fn.showPos = function(xs) {
-        console.log("showPos:"+xs);
+       
         this._pf.style.width = xs + "px";
     };
 
-    fn.afterStop=function(func){
-        this._afterEven=func;
+    fn.showPosPx=function(x){
+        this._pf.style.width = x*this._pWidth+ "px";
+    }
+
+    fn.afterPress=function(func){
+        this._afterPressEven=func;
         return this;
     };
 
+    fn.afterStop=function(func){
+        this._afterStopEven=func;
+        return this;
+    };
+
+    fn.afterChanged=function(func){
+        this._afterChangedEven=func;
+        return this;
+    };    
+
     fn.init = function(args) {
 
-        this._afterEven=function(){};
+        this._afterPressEven=function(x){};
+        this._afterStopEven=function(x){};
+        this._afterChangedEven=function(x){};
         this._domID = args.pid || "";
+
+        console.log(args.deviceType);
+        this.deviceType=args.deviceType||0;
+        console.log(this.deviceType);
+
         this._dom = document.getElementById(this._domID);
 
         if (!this._dom) {
@@ -238,11 +283,11 @@ var h5Progess = (function() {
         this._pSize = args.pSize || 3;
         this._pWidth = args.width || 100;
         this._dotSize = args.dotSize|| 10;
-        this._pDotColor = "";
-        this._pBgColor = "";
-        this._pFwColor = "";
+        this._pDotColor = args.dotColor||"white";
+        this._pBgColor =  args.bgColor||"rgb(226, 226, 228)";
+        this._pFwColor = args.fwColor||"#f44336";
 
-        this._nowProgessPos = parseInt(args.pos) || 0.5;
+        this._nowProgessPos = parseFloat(args.pos) || 0;
 
 
         this._pf = fn.selectChild(this._dom, "processbody-fw" + this.idNum);
@@ -252,47 +297,53 @@ var h5Progess = (function() {
         var self = this;
 
         // 初始化样式
+        //console.log(this._pBgColor+this._pFwColor+this._pDotColor+"8");
+        this._bg.style.background=this._pBgColor;
+        this._pf.style.background=this._pFwColor;
+        this._dot.style.background=this._pDotColor;
 
         this._dom.style.cursor = "pointer";
         this._dom.style.overflow = "hidden";
         this._dom.style.width = (typeof this._pWidth)==="string"?this._pWidth:(parseInt(this._pWidth) + "px");
         //计算现在的宽度;
-        console.log(fn.currenStyleFactort(this._bg,"width")+"now width");
-        this._pWidth=parseInt(fn.currenStyleFactort(this._dom,'width'))-this._dotSize;
 
+        //console.log(fn.currenStyleFactort(this._bg,"width")+"now width");
+        this._pWidth=parseInt(fn.currenStyleFactort(this._dom,'width'))-this._dotSize-4;
+
+        
         this._nowProgessPosPx = this._nowProgessPos * this._pWidth;
 
-        console.log("now Width :"+this._pWidth);
-        this._dom.style.padding = "0 " + Math.round(this._dotSize / 2) + "px";
+
+        this._dom.style.padding = "0 " + Math.round((this._dotSize+4)/ 2) + "px";
 
         this._bg.style.height = this._pSize + "px";
         this._pf.style.height = this._pSize + "px";
 
-        this._bg.style.margin = Math.round((this._dotSize - this._pSize) / 2) + 1 + "px 0";
-        this._pf.style.top = Math.round((this._dotSize - this._pSize) / 2) + "px";
+        this._bg.style.margin = Math.round((this._dotSize - this._pSize) / 2) + 2 + "px 0";
+        this._pf.style.top = Math.round((this._dotSize - this._pSize) / 2)+2 + "px";
 
         this._dot.style.width = this._dotSize + "px";
         this._dot.style.height = this._dotSize + "px";
         this._dot.style.borderRadius = this._dotSize / 2 + "px";
         this._dot.style.top = -(this._dotSize - this._pSize) / 2 + "px";
-        this._dot.style.right = -(this._dotSize) / 2 + "px";
-
+        this._dot.style.right = -parseInt(this._dotSize/ 2) + "px";
         // ui初始化
-        console.log("ui");
+        //console.log("ui");
+       
         fn.showPos.call(self, parseInt(this._nowProgessPosPx));
 
         //事件初始化
 
-        var deviceType=fn.browserType();
-
-        if(deviceType===0){
+        console.log(this.deviceType);
+        if(this.deviceType===0){
             // pc
             initEventPc(self);
-        }else if(deviceType===1){
+        }else if(this.deviceType===1){
             //mobile
             console.log("mb");
             initEventMb(self);
         }
+
         return this;
     };
 

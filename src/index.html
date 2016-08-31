@@ -4,31 +4,30 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">	
 		<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="h5player">		
-<!-- uc强制竖屏 -->
-<meta name="screen-orientation" content="portrait">
+		<meta name="apple-mobile-web-app-title" content="h5player">		
+		<!-- uc强制竖屏 -->
+		<meta name="screen-orientation" content="portrait">
 
-<!-- UC强制全屏 --> 
-<meta name="full-screen" content="yes">
+		<!-- UC强制全屏 --> 
+		<meta name="full-screen" content="yes">
 
-<!-- UC应用模式 --> 
-<meta name="browsermode" content="application">
+		<!-- UC应用模式 --> 
+		<meta name="browsermode" content="application">
 
-<!-- QQ强制竖屏 -->
-<meta name="x5-orientation" content="portrait">
+		<!-- QQ强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
 
-<!-- QQ强制全屏 -->
-<meta name="x5-fullscreen" content="true">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
 
-<!-- QQ应用模式 -->
-<meta name="x5-page-mode" content="app">			
+		<!-- QQ应用模式 -->
+		<meta name="x5-page-mode" content="app">			
 		<title>h5Player</title>
 	    <!-- bower:css -->
 	    <link rel="stylesheet" href="js/lib/Ionicons/css/ionicons.css" />
 	    <!-- endbower -->		
 		<link rel="stylesheet" href="styles/index.css">
 	    <!-- bower:js -->
-	    <script src="js/lib/vue/dist/vue.js"></script>
 	    <script src="js/lib/html5shiv/dist/html5shiv.js"></script>
 	    <!-- endbower -->			
 	</head>
@@ -38,7 +37,7 @@
 			<div class="view" id="vHome">
 				<header >
 					<h3>
-						演员 
+						喜剧之王
 						<button ><i class="ion-ios-search"></i></button>
 					</h3>
 				</header>
@@ -48,7 +47,10 @@
 					</div>
 					<div id="h5p-volume">
 						<i class="ion-ios-volume-high"></i>
-					</div>					
+					</div>
+					<div id="valCon">
+						<div id="val"></div>
+					</div>
 					<div id='lrcConP'>						
 						<div id="lrcCon">
 							<p timer="">演员</p>
@@ -80,9 +82,9 @@
                 <section id="processBar">
                     <div>
                         <div id="timer">
-                            2:35
+                            00:00
                         </div>
-                        <div id="totalTime">4:30</div>                        
+                        <div id="totalTime">4:21</div>                        
                         <div id="processbody-con">
                         
                         </div>
@@ -135,15 +137,21 @@
 						</ul>
 					</div>				
 			</section>
-			<audio   src="http://www.internetke.com/jsEffects/2014101006/mp3/The%20Dawn.mp3"></audio>
+			<audio id="h5playerMatic">
+				<source src="http://www.h-five.com/MP3/xijuzhiwang.mp3" type="audio/mpeg">				
+				<source src="song2.ogg" type="audio/ogg">	
+			</audio>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/h5progess.js"></script>
+    <script type="text/javascript" src="js/analyseLrc.js"></script>	
+    <script type="text/javascript" src="js/lrcScroll.js"></script>
+	<script type="text/javascript" src="js/h5player.js"></script>
+
     <script type="text/javascript">
-        h5Progess({pid:"processbody-con",width:"auto",dotSize:16,pSize:4}).afterStop(function(x){
-        
-        });
-      
+
+
+       
     </script>
 </html>
  

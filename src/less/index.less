@@ -86,7 +86,7 @@ html,body{
 	background-color:white;
 	height:100%;
 	padding-top:10px;
-	padding-bottom:140px;
+	padding-bottom:155px;
 	overflow:hidden;
 	position:relative;
 
@@ -103,13 +103,29 @@ html,body{
 		.border-radius;
 		padding:2px 4px;
 		color:blue;
+		z-index:999;		
 	}
 
 	#h5p-volume{
+		display:none;
 		position:absolute;
 		left:10px;
 		.border-radius;
 		padding:0px 5px;
+		z-index:999;
+	}
+
+	/*音量调节*/
+
+	#valCon{
+	    width: 75%;
+	    position: absolute;
+	    left: 35px;
+	    top: 17px;
+	    background: rgba(10, 10, 10, 0.79);
+	    border-radius: 99px;
+	    z-index:999;
+		visibility:hidden;  
 	}
 
 	#lrcConP{
@@ -119,7 +135,7 @@ html,body{
 		height:100%;
 		overflow:auto;
 	}
-	#lrcCon{
+	#lrcConP_content{
 		text-align:center;
 		p{
 			margin:10px 0;
@@ -156,6 +172,11 @@ html,body{
 }
 
 //h5progess
+.processbody-con:hover .processDot{
+	display:block !important;
+	
+}
+
 .processbody-con{
 	position:relative;
 	overflow:auto;
@@ -173,6 +194,7 @@ html,body{
 	}
 
 	.processbody-fw{
+	
 		.radiousProcess;
 		position:absolute;
 		top:@topH;
@@ -181,6 +203,7 @@ html,body{
 		width:80%;
 
 		.processDot{
+			display:none;
 			width:10px;
 			height:10px;
 			border-radius:5px;
@@ -290,6 +313,10 @@ html,body{
 		}
 	}
 
+}
+
+.tOn{
+	color:#f44336;
 }
 
 

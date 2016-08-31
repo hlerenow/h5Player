@@ -52,9 +52,10 @@ body {
   background-color: white;
   height: 100%;
   padding-top: 10px;
-  padding-bottom: 140px;
+  padding-bottom: 155px;
   overflow: hidden;
   position: relative;
+  /*音量调节*/
 }
 #h5player-con #tabs-change {
   position: absolute;
@@ -65,14 +66,27 @@ body {
   top: 15px;
   padding: 2px 4px;
   color: blue;
+  z-index: 999;
 }
 #h5player-con #h5p-volume {
+  display: none;
   position: absolute;
   left: 10px;
   border: 1px solid #dcd9d9;
   border-radius: 15px;
   top: 15px;
   padding: 0px 5px;
+  z-index: 999;
+}
+#h5player-con #valCon {
+  width: 75%;
+  position: absolute;
+  left: 35px;
+  top: 17px;
+  background: rgba(10, 10, 10, 0.79);
+  border-radius: 99px;
+  z-index: 999;
+  visibility: hidden;
 }
 #h5player-con #lrcConP {
   position: relative;
@@ -81,10 +95,10 @@ body {
   height: 100%;
   overflow: auto;
 }
-#h5player-con #lrcCon {
+#h5player-con #lrcConP_content {
   text-align: center;
 }
-#h5player-con #lrcCon p {
+#h5player-con #lrcConP_content p {
   margin: 10px 0;
   line-height: 1.6;
 }
@@ -108,6 +122,9 @@ body {
   float: right;
   font-size: 16px;
 }
+.processbody-con:hover .processDot {
+  display: block !important;
+}
 .processbody-con {
   position: relative;
   overflow: auto;
@@ -128,6 +145,7 @@ body {
   width: 80%;
 }
 .processbody-con .processbody-fw .processDot {
+  display: none;
   width: 10px;
   height: 10px;
   border-radius: 5px;
@@ -226,4 +244,7 @@ body {
   letter-spacing: 1px;
   padding: 0px 10px;
   border-bottom: 1px solid rgba(177, 177, 177, 0.6);
+}
+.tOn {
+  color: #f44336;
 }

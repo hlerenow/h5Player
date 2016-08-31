@@ -8,7 +8,6 @@
   "license": "ISC",
   "homepage": "",
   "dependencies": {
-    "vue": "^1.0.26",
     "Ionicons": "ionicons#^2.0.1",
     "html5shiv": "^3.7.3"
   }

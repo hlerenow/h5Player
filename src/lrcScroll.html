@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">			
+		<title>lrcScroll</title>
+	</head>
+	<style type="text/css">
+	.tOn{
+		color: red;
+	}
+		#lrcConP{
+			overflow: auto;
+			height: 500px;
+			position: relative;
+		}
+		.lrcCon{
+			margin: 0;
+		}
+		.lrcCon p{
+			text-align: center;
+			margin: 0;
+			padding:8px;
+			line-height: 1.5;
+			margin: 2px;
+		}
+
+		#cd{
+			background-color: red;
+			width:100px;
+			height:400px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 999;
+		}
+	</style>
+	<body>
+	<div id='lrcConP' class="a b c d">
+		
+		<div id="lrcCon" class="lrcCon">
+			<p timer="t100">演员</p>
+			<p timer="">简单点说话的方式简单点</p>
+			<p timer="">该配合你演出的我延时闻不见该配合你演出的我延时闻不见该配合你演出的我延时闻不见</p>
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>				
+
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>
+			<p timer="">演员</p>
+			<p timer="">呵呵</p>
+			<p timer="">哥哥</p>																	
+		</div>						
+	</div>
+	</body>
+	<script type="text/javascript" src="js/analyseLrc.js"></script>
+	<script type="text/javascript" src="js/lrcScroll.js"></script>
+	<script type="text/javascript">
+		var a=new lrcScroll({
+		    id:"lrcConP",
+		    lrc:strVar
+		});
+		var time=-1;
+
+		setInterval(function(){
+			time=time+1;
+			a.srcollToLrcByTime(time);
+
+			var cd = document.querySelector("p[timer='t3']");
+			//alert(cd)
+			//alert(a._dom.scrollTop);
+		},1000);
+	</script>
+
+</html>

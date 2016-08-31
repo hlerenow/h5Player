@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>HL</title>
+	</head>
+	<body>
+
+<ul id="test">
+  <li>
+    <ul class="leave-sensitive">
+      <li>item 1-1</li>
+      <li>item 1-2</li>
+    </ul>
+  </li>
+  <li>
+    <ul class="leave-sensitive">
+      <li>item 2-1</li>
+      <li>item 2-2</li>
+    </ul>
+  </li>
+</ul>
+
+<script>
+  var delegationSelector = ".leave-sensitive";
+
+  document.getElementById("test").addEventListener("mouseout", function( event ) {
+    var target = event.target,
+        related = event.relatedTarget,
+        match;
+
+    // search for a parent node matching the delegation selector
+    while ( target && target != document && !( match = matches( target, delegationSelector ) ) ) {
+        target = target.parentNode;
+    }
+
+    // exit if no matching node has been found
+    if ( !match ) { return; }
+
+    // loop through the parent of the related target to make sure that it's not a child of the target
+    while ( related && related != target && related != document ) {
+        related = related.parentNode;
+    }
+
+    // exit if this is the case
+    if ( related == target ) { return; }
+
+    // the "delegated mouseleave" handler can now be executed
+    // change the color of the text
+    target.style.color = "orange";
+    // reset the color after a small amount of time
+    setTimeout(function() {
+        target.style.color = "";
+    }, 500);
+    
+    
+  }, false);
+ 
+ 
+  // function used to check if a DOM element matches a given selector
+  // the following code can be replaced by this IE8 compatible function: https://gist.github.com/2851541
+  function matches( elem, selector ){
+    // the matchesSelector is prefixed in most (if not all) browsers
+    return elem.webkitMatchesSelector( selector );
+  };
+</script>
+		
+	</body>
+</html>

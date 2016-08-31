@@ -4,7 +4,51 @@
 		<meta charset="utf-8" />
 		<title>HL</title>
         <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />           
-		<link rel="stylesheet" href="styles/index.css">
+		<style type="text/css">
+/*heprogess start*/
+.processbody-con {
+  position: relative;
+  overflow: auto;
+}
+.processbody-con .processbody-bg {
+  margin: 5px 0;
+  height: 4px;
+  width: 100%;
+  background-color: rgba(160, 160, 162, 0.52);
+  border-radius: 50px;
+}
+.processbody-con .processbody-fw {
+  border-radius: 50px;
+  position: absolute;
+  top: 5px;
+  height: 4px;
+  background: #f44336;
+  width: 80%;
+}
+.processbody-con .processbody-fw .processDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid black;
+  border-color: rgba(214, 209, 209, 0.6);
+  position: absolute;
+  top: -3px;
+  right: -3px;
+}
+.processbody-con .processbody-fw .processDot::after {
+  position: relative;
+  margin: 50% auto;
+  top: -2px;
+  content: " ";
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: #f44336;
+  border-radius: 999px;
+}
+/*h5progess end*/        
+        </style>
 	</head>
 	<body>
     <div style="margin-top:100px;">
@@ -20,7 +64,12 @@
 	</body>
 	<script type="text/javascript" src="js/h5progess.js"></script>
     <script type="text/javascript">
-        h5Progess({pid:"processbody-con",width:"300",dotSize:16,pSize:4}).afterStop(function(x){
+        h5Progess({
+            pid:"processbody-con",
+            width:"300",
+            dotSize:19,pSize:4,
+            bgColor:"pink"
+        }).afterStop(function(x){
         
         });
       
