@@ -195,11 +195,11 @@ body {
   height: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 30;
+  z-index: 60;
 }
 #bundleDioalg {
   transition: all 0.5s;
-  z-index: 40;
+  z-index: 60;
   width: 100%;
   height: 300px;
   position: absolute;
@@ -247,4 +247,63 @@ body {
 }
 .tOn {
   color: #f44336;
+}
+#loading {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  z-index: 70;
+}
+#loading div {
+  border-radius: 3px;
+  padding: 5px 5px 10px;
+  width: 70px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.88);
+}
+#loading div:before,
+#loading div:after {
+  border-radius: 3px;
+  content: " ";
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: white;
+  position: absolute;
+  bottom: 4px;
+}
+#loading div:before {
+  animation: loading-left 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  left: 15px;
+}
+#loading div:after {
+  animation: loading-right 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  right: 15px;
+}
+@keyframes loading-left {
+  from {
+    left: 15px;
+  }
+  to {
+    left: 50px;
+  }
+}
+@keyframes loading-right {
+  from {
+    right: 15px;
+  }
+  to {
+    right: 50px;
+  }
 }

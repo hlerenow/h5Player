@@ -22,15 +22,18 @@
 
     Hlib.liveEvent=function(chir,event,func,par){
         Hlib.addEvent(par||document,event,function(e){
-            var found,el=e.target||e.srcElement;
-            while(el&&!(found=el.nodeName===chir)){
-                el=el.parentElement;
-                if(found){
-                    func.call(el,e)
+            var qs=(par||document).querySelectorAll(chir);
+            if(qs){
+                var el=e.target||e.srcElement,index=-1;
+                while(el&&(index=Array.prototype.indexOf.call(qs,el)===-1)){
+                    el=el.parentElement;
+                }
+
+                if(index>-1){
+                    func.call(el,e);
                 }
             }
         })
-
     }
 
     Hlib.getCurrentStyle=function(el,attr){
@@ -252,7 +255,7 @@
 
             Hlib.addEvent(this.dom,'canplay',function(){
                 document.getElementById("totalTime").innerHTML = timeFctory(self.dom.duration);
-                console.log('gg'+timeFctory(self.dom.duration));
+
             });
 
             // 播放控制按钮
@@ -273,6 +276,21 @@
                 }
             });
 
+          Hlib.addEvent(self.dom,'loadstart',function(e){
+                document.getElementById('loading').style.display="block";
+            })    
+
+          Hlib.addEvent(self.dom,'progress',function(e){
+        
+            if(e.target.buffered.length)
+                console.log(e.target.buffered);
+            })                  
+
+          Hlib.addEvent(self.dom,'loadeddata',function(e){
+                document.getElementById('loading').style.display="none";
+            })                  
+
+         
             //下一曲事件
             Hlib.addEvent(document.getElementById("h5-next"),'click',function(){
                 var len=self.songList.length;
@@ -297,14 +315,23 @@
             //列表展示
             Hlib.addEvent(document.getElementById("songList"),'click',function(){
                 document.getElementById("maskLayer").style.display="block";
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0.6)";                
                 document.getElementById("bundleDioalg").style.bottom="0px";
             });    
 
             //列表关闭
             Hlib.addEvent(document.getElementById("closeList"),'click',function(){
                 document.getElementById("maskLayer").style.display="none";
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";                                
                 document.getElementById("bundleDioalg").style.bottom="-100%";
-            });                  
+            });     
+
+
+            //列表点击
+            Hlib.liveEvent("li",'click',function(){
+                self.playOtherSong(self.songList[this.getAttribute("sid")]);
+        
+            },document.getElementById('vList'));
 
             this.playOtherSong(self.songList[0]);
         }
