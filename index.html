@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">	
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="h5player">		
+		<!-- uc强制竖屏 -->
+		<meta name="screen-orientation" content="portrait">
+
+		<!-- UC强制全屏 --> 
+		<meta name="full-screen" content="yes">
+
+		<!-- UC应用模式 --> 
+		<meta name="browsermode" content="application">
+
+		<!-- QQ强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
+
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+
+		<!-- QQ应用模式 -->
+		<meta name="x5-page-mode" content="app">			
+		<title>h5Player</title>
+	    <!-- bower:css -->
+	    <link rel="stylesheet" href="src/js/lib/Ionicons/css/ionicons.css" />
+	    <!-- endbower -->		
+		<link rel="stylesheet" href="src/styles/index.css">
+	    <!-- bower:js -->
+	    <script src="src/s/lib/html5shiv/dist/html5shiv.js"></script>
+	    <!-- endbower -->			
+	</head>
+	<body>
+
+		<div id="h5player">
+			<div class="view" id="vHome">
+				<header >
+					<h3>
+						<sapn id="songTitle">喜剧之王</sapn>
+						<button ><i class="ion-ios-gear-outline"></i></button>
+					</h3>
+				</header>
+				<section id="h5player-con">
+					<div id="tabs-change">
+						<i class="ion-ios-pulse"></i>
+					</div>
+					<div id="h5p-volume">
+						<i class="ion-ios-volume-high"></i>
+					</div>
+					<div id="valCon">
+						<div id="val"></div>
+					</div>
+					<div id='lrcConP'>											
+					</div>
+
+				</section>
+                <section id="processBar">
+                    <div>
+                        <div id="timer">
+                            00:00
+                        </div>
+                        <div id="totalTime">00:00</div>                        
+                        <div id="processbody-con">
+                        
+                        </div>
+
+                    </div>
+                </section>
+				<section id="toolbar">
+					<nav >
+						<!-- ion-ios-shuffle-strong -->
+						<button id="h5-palyWays"><i class="ion-ios-infinite-outline"></i> </button>
+						<button id="h5-forward"><i class="ion-ios-skipbackward-outline"></i></button>
+						<!-- ion-pause -->
+						<button id="h5-play"><i class="ion-ios-play-outline"></i></button>						
+						<button id="h5-next"> <i class="ion-ios-skipforward-outline"></i> </button>
+						<button id="songList"> <i class="ion-ios-list-outline"></i> </button>
+					</nav>
+
+				</section>				
+			</div>
+			<section id="maskLayer">
+				
+			</section>
+			<section id="bundleDioalg">
+					<nav>
+						<span>播放列表</span>
+						<button id="closeList"> <i class="ion-ios-close-empty"></i> </button>
+					</nav>
+					<div id="vList">
+						<ul>
+							<li>眼啊gas斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬的方法</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>眼啊gas斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬的方法</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>眼啊gas斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬的方法</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>眼啊gas斯蒂芬斯蒂芬斯蒂芬斯蒂芬斯蒂芬的方法</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>					
+						</ul>
+					</div>				
+			</section>
+			<audio id="h5playerMatic" preload="auto">
+
+			</audio>
+		</div>
+	</body>
+	<script type="text/javascript" src="src/js/h5progess.js"></script>
+    <script type="text/javascript" src="src/js/analyseLrc.js"></script>	
+    <script type="text/javascript" src="src/js/lrcScroll.js"></script>
+	<script type="text/javascript" src="src/js/h5player.js"></script>
+</html>
+ 
