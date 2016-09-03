@@ -255,14 +255,14 @@ var h5Progess = (function() {
         this._afterChangedEven=function(x){};
         this._domID = args.pid || "";
 
-        console.log(args.deviceType);
+     
         this.deviceType=args.deviceType||0;
-        console.log(this.deviceType);
+   
 
         this._dom = document.getElementById(this._domID);
 
         if (!this._dom) {
-            console.log(this._dom);
+       
             throw new Error("元素不存在");
         }
 
@@ -297,7 +297,7 @@ var h5Progess = (function() {
         var self = this;
 
         // 初始化样式
-        //console.log(this._pBgColor+this._pFwColor+this._pDotColor+"8");
+
         this._bg.style.background=this._pBgColor;
         this._pf.style.background=this._pFwColor;
         this._dot.style.background=this._pDotColor;
@@ -307,7 +307,7 @@ var h5Progess = (function() {
         this._dom.style.width = (typeof this._pWidth)==="string"?this._pWidth:(parseInt(this._pWidth) + "px");
         //计算现在的宽度;
 
-        //console.log(fn.currenStyleFactort(this._bg,"width")+"now width");
+     
         this._pWidth=parseInt(fn.currenStyleFactort(this._dom,'width'))-this._dotSize-4;
 
         
@@ -328,19 +328,20 @@ var h5Progess = (function() {
         this._dot.style.top = -(this._dotSize - this._pSize) / 2 + "px";
         this._dot.style.right = -parseInt(this._dotSize/ 2) + "px";
         // ui初始化
-        //console.log("ui");
+     
+
        
         fn.showPos.call(self, parseInt(this._nowProgessPosPx));
 
         //事件初始化
 
-        console.log(this.deviceType);
+
         if(this.deviceType===0){
             // pc
             initEventPc(self);
         }else if(this.deviceType===1){
             //mobile
-            console.log("mb");
+
             initEventMb(self);
         }
 

@@ -76,8 +76,8 @@ html,body{
 			right:8px;
 			border-radius:1px;
 			background-color:transparent;
+			font-size:30px;
 			color:white;
-			.border-set-radius(1px,1px,#ffffff);
 		}
 	}
 }
@@ -103,7 +103,7 @@ html,body{
 		.border-radius;
 		padding:2px 4px;
 		color:blue;
-		z-index:999;		
+		z-index:50;		
 	}
 
 	#h5p-volume{
@@ -112,7 +112,7 @@ html,body{
 		left:10px;
 		.border-radius;
 		padding:0px 5px;
-		z-index:999;
+		z-index:50;
 	}
 
 	/*音量调节*/
@@ -124,7 +124,7 @@ html,body{
 	    top: 17px;
 	    background: rgba(10, 10, 10, 0.79);
 	    border-radius: 99px;
-	    z-index:999;
+	    z-index:50;
 		visibility:hidden;  
 	}
 
@@ -172,10 +172,6 @@ html,body{
 }
 
 //h5progess
-.processbody-con:hover .processDot{
-	display:block !important;
-	
-}
 
 .processbody-con{
 	position:relative;
@@ -203,7 +199,6 @@ html,body{
 		width:80%;
 
 		.processDot{
-			display:none;
 			width:10px;
 			height:10px;
 			border-radius:5px;
@@ -258,6 +253,7 @@ html,body{
 
 
 #maskLayer{
+	transition:all 0.5s;
 	display:none;
 	top:0;
 	left:0;
@@ -265,9 +261,12 @@ html,body{
 	height:100%;	
 	position:absolute;
 	background-color:@middleGrayOpacity;
+	z-index:30;
 }
 
 #bundleDioalg{
+	transition:all 0.5s;
+	z-index:40;
 	width:100%;
 	height:300px;
 	position:absolute;

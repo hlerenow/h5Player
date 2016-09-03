@@ -19,7 +19,6 @@ var lrcScroll=(function(){
         }else if(!this.hasClass(el,newClass)){
             el.className=el.className+" "+newClass;
         }
-            console.log(newClass+'55');
 
     }
 
@@ -64,7 +63,6 @@ var lrcScroll=(function(){
 
     var con=document.getElementById("lrcConP");
 
-    console.log(con+"55");        
 
     document.querySelector("p[timer='t100']");
 
@@ -82,6 +80,7 @@ var lrcScroll=(function(){
         this._domContent=null;
         this._analyLrc={};
         this._timeToLrc={};
+        this._changLrc=function(){}
 
         this.initLrc();
         return this;
@@ -95,13 +94,13 @@ var lrcScroll=(function(){
         var lrcLrcFiled=this._analyLrc.getLrcFiled();
         var LrcTagFiled=this._analyLrc.getTagFiled();
         var tap="";
-
         for(i=0;i<lrcOrder.length;i=i+1){
             if(i===0){
                 tap="tOn";
             }else{
                 tap="";
             }
+
             this._timeToLrc[parseInt(lrcOrder[i]/1000)]="t"+i;
             htmlTemp+='<p class="'+tap+'" timer="t'+i+'">'+lrcLrcFiled['t'+lrcOrder[i]]+'</p>';            
         }
@@ -115,7 +114,21 @@ var lrcScroll=(function(){
        // console.log(this._timeToLrc);
     }
 
+    fn.beforChangeLrc=function(func){
+        this._changLrc=func;
+        return this;
+    }
+    fn.clear=function(){
+        this._dom.innerHTML="";
+        this._changLrc();
+        return this;
+    }
+
     fn.initLrc=function(){
+        if(this._lrc===""||!this._lrc){
+            this._lrc="[00:00.00] 暂无歌词";
+        }
+
         this._analyLrc=analyseLrc(this._lrc).innitLrc();
        // console.log(this);
         this.createHtml();
@@ -172,12 +185,19 @@ var lrcScroll=(function(){
             nowLine=this._domContent.querySelector("p[timer='"+nowTimer+"']");
             Hlib.removeClass(beforeLine,"tOn");
             Hlib.addClass(nowLine,"tOn");
-
             this.beforeTimer=nowTimer;
-            console.log(document.querySelector("p[timer='"+this.beforeTimer+"']")+'66');
         }
 
         return this;
+    }
+
+    fn.changLrc=function(lrc){
+        this._lrc=lrc||"";
+        this.beforeTimer="t0";
+        this._domContent=null;
+        this._analyLrc={};
+        this._timeToLrc={};        
+        this.initLrc();
     }
 
     return  returnHandle;

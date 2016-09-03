@@ -71,16 +71,10 @@
 		    id:"lrcConP",
 		    lrc:strVar
 		});
-		var time=-1;
 
-		setInterval(function(){
-			time=time+1;
-			a.srcollToLrcByTime(time);
-
-			var cd = document.querySelector("p[timer='t3']");
-			//alert(cd)
-			//alert(a._dom.scrollTop);
-		},1000);
+		setTimeout(function(){
+			a.changLrc("");
+			}, 1000);
 	</script>
 
 </html>

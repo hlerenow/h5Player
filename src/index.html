@@ -37,8 +37,8 @@
 			<div class="view" id="vHome">
 				<header >
 					<h3>
-						喜剧之王
-						<button ><i class="ion-ios-search"></i></button>
+						<sapn id="songTitle">喜剧之王</sapn>
+						<button ><i class="ion-ios-gear-outline"></i></button>
 					</h3>
 				</header>
 				<section id="h5player-con">
@@ -51,31 +51,7 @@
 					<div id="valCon">
 						<div id="val"></div>
 					</div>
-					<div id='lrcConP'>						
-						<div id="lrcCon">
-							<p timer="">演员</p>
-							<p timer="">简单点说话的方式简单点</p>
-							<p timer="">该配合你演出的我延时闻不见该配合你演出的我延时闻不见该配合你演出的我延时闻不见</p>
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>				
-							
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>
-							<p timer="">演员</p>
-							<p timer="">呵呵</p>
-							<p timer="">哥哥</p>																	
-						</div>						
+					<div id='lrcConP'>											
 					</div>
 
 				</section>
@@ -84,7 +60,7 @@
                         <div id="timer">
                             00:00
                         </div>
-                        <div id="totalTime">4:21</div>                        
+                        <div id="totalTime">00:00</div>                        
                         <div id="processbody-con">
                         
                         </div>
@@ -99,7 +75,7 @@
 						<!-- ion-pause -->
 						<button id="h5-play"><i class="ion-ios-play-outline"></i></button>						
 						<button id="h5-next"> <i class="ion-ios-skipforward-outline"></i> </button>
-						<button> <i class="ion-ios-list-outline"></i> </button>
+						<button id="songList"> <i class="ion-ios-list-outline"></i> </button>
 					</nav>
 
 				</section>				
@@ -110,7 +86,7 @@
 			<section id="bundleDioalg">
 					<nav>
 						<span>播放列表</span>
-						<button> <i class="ion-ios-close-empty"></i> </button>
+						<button id="closeList"> <i class="ion-ios-close-empty"></i> </button>
 					</nav>
 					<div id="vList">
 						<ul>
@@ -137,9 +113,8 @@
 						</ul>
 					</div>				
 			</section>
-			<audio id="h5playerMatic">
-				<source src="http://www.h-five.com/MP3/xijuzhiwang.mp3" type="audio/mpeg">				
-				<source src="song2.ogg" type="audio/ogg">	
+			<audio id="h5playerMatic" preload="auto">
+
 			</audio>
 		</div>
 	</body>

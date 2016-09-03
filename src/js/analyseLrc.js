@@ -88,6 +88,7 @@ var analyseLrc=function(lrc){
     };
 
     returnHandle.prototype.innitLrc = function() {
+
         //console.log(this.sourceCode);
         // var moreTag=this.sourceCode.match(/\[(\S+):([^0-9]\S*)\]/gi);
         var i = 0,
@@ -96,8 +97,12 @@ var analyseLrc=function(lrc){
 
         //用于存储第一次正则匹配后特殊标签的的结果
         var moreTag = this._sourceCode.match(/\[(\S+?):([^0-9]\S*?)\]/ig);
+
         //用于储存一次正则匹配后歌词内容的结果
         var lrc_time_content = this._sourceCode.match(/\[[0-9\.:\[\]]+\][^\[\]]*/ig);
+
+        //如果歌词没有额外标签，默认为空
+        moreTag=moreTag||[];
 
         //      将歌词信息字段写入tagField
         for (i = 0; i < moreTag.length; i = i + 1) {
