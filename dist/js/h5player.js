@@ -142,6 +142,8 @@
         },
         playOtherSong:function(songNews){
             //新的一曲
+
+            console.log(songNews); 
             this.dom.pause();
             this.changeSongSrc(songNews);
 
@@ -181,7 +183,7 @@
             var i=0;
             var sl=this.songList;
             for(i=0;i<sl.length;i=i+1){
-                html+="<li sId='"+i+"'>"+sl[i].title+"</li>";
+                html+="<li sId='"+i+"'>"+sl[i].title+"<span class='ion-ios-musical-note'></span></li>";
             }
 
             html+="<ul>";
@@ -276,16 +278,17 @@
                 }
             });
 
+           //歌曲数据开始加载
           Hlib.addEvent(self.dom,'loadstart',function(e){
-                document.getElementById('loading').style.display="block";
+               
+                    document.getElementById('loading').style.display="block";
+          
             })    
 
           Hlib.addEvent(self.dom,'progress',function(e){
         
-            if(e.target.buffered.length)
-                console.log(e.target.buffered);
             })                  
-
+          //歌曲数据加载完成
           Hlib.addEvent(self.dom,'loadeddata',function(e){
                 document.getElementById('loading').style.display="none";
             })                  
@@ -294,21 +297,27 @@
             //下一曲事件
             Hlib.addEvent(document.getElementById("h5-next"),'click',function(){
                 var len=self.songList.length;
+                
                 if(self.nowSongId+1>=len){
                     self.nowSongId=0;
                 }else{
                     self.nowSongId=self.nowSongId+1;
                 }
+                console.log(self.nowSongId);
+
                 self.playOtherSong(self.songList[self.nowSongId]);                
             });
 
             //上一曲事件
             Hlib.addEvent(document.getElementById("h5-forward"),'click',function(){
+
                 if(self.nowSongId-1<0){
                     self.nowSongId=self.songList.length-1;
                 }else{
                     self.nowSongId=self.nowSongId-1;
                 }
+
+                console.log(self.nowSongId);
                 self.playOtherSong(self.songList[self.nowSongId]);                
             });   
 
@@ -329,7 +338,14 @@
 
             //列表点击
             Hlib.liveEvent("li",'click',function(){
-                self.playOtherSong(self.songList[this.getAttribute("sid")]);
+                var sid=this.getAttribute("sid");
+                console.log(sid);
+                self.nowSongId=parseInt(sid);
+                          
+                self.playOtherSong(self.songList[sid]);
+                document.getElementById("maskLayer").style.display="none";
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";                                
+                document.getElementById("bundleDioalg").style.bottom="-100%";                
         
             },document.getElementById('vList'));
 

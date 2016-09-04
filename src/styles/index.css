@@ -245,18 +245,20 @@ body {
   padding: 0px 10px;
   border-bottom: 1px solid rgba(177, 177, 177, 0.6);
 }
+#bundleDioalg #vList ul li span {
+  float: right;
+}
 .tOn {
   color: #f44336;
 }
 #loading {
   display: none;
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
   width: 100%;
+  height: 40px;
   color: white;
   z-index: 70;
+  bottom: 100px;
 }
 #loading div {
   border-radius: 3px;
@@ -264,7 +266,6 @@ body {
   width: 70px;
   text-align: center;
   margin: 0 auto;
-  margin-top: 50%;
   position: relative;
   background: rgba(0, 0, 0, 0.88);
 }

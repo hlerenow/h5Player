@@ -6,7 +6,32 @@
 		<title>audio</title>
 	</head>
 	<body>
-	
+		<button id="ma">a</button>
+		<button id="mb">b</button>
 	</body>
-	<script type="text/javascript" src="js/h5audio.js"></script>
+	<!-- <script type="text/javascript" src="js/h5audio.js"></script> -->
+	<script type="text/javascript">
+		var a=new Audio(),
+			b=new Audio();
+
+			a.src="http://7xknbg.com1.z0.glb.clouddn.com/%E6%9D%8E%E8%8D%A3%E6%B5%A9%20-%20%E5%96%9C%E5%89%A7%E4%B9%8B%E7%8E%8B.mp3";
+			a.type='audio/mpeg';
+
+			b.src="http://7xknbg.com1.z0.glb.clouddn.com/%E6%9D%8E%E8%8D%A3%E6%B5%A9%20-%20%E4%B8%8D%E6%90%AD.mp3";
+			b.type='audio/mpeg';			
+
+		var ad=document.getElementById("ma");
+		var bd=document.getElementById("mb");
+
+		ad.addEventListener('click',function(){
+			b.pause();
+			a.play();
+		})
+
+		bd.addEventListener('click',function(){
+			a.pause();
+			b.play();
+		})		
+
+	</script>
 </html>
