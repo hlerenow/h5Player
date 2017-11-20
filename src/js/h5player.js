@@ -77,7 +77,7 @@
         progessBar:"",
         songList:[{
             title:"喜剧之王",
-            source:[["http://www.h-five.com/MP3/xijuzhiwang.mp3",'audio/mpeg']],
+            source:[["http://win.web.rf01.sycdn.kuwo.cn/resource/n3/98/33/559635333.mp3",'audio/mpeg']],
             actor:"李荣浩",
             lrc:strVar
         },
