@@ -77,7 +77,7 @@
         progessBar:"",
         songList:[{
             title:"喜剧之王",
-            source:[["http://www.h-five.com/MP3/xijuzhiwang.mp3",'audio/mpeg']],
+            source: [["http://statics.h-five.com/mp3/%E5%96%9C%E5%89%A7%E4%B9%8B%E7%8E%8B-%E6%9D%8E%E8%8D%A3%E6%B5%A9.mp3",'audio/mpeg']],
             actor:"李荣浩",
             lrc:strVar
         },
@@ -85,7 +85,7 @@
             title:'不搭',
             source:[['http://7xknbg.com1.z0.glb.clouddn.com/%E6%9D%8E%E8%8D%A3%E6%B5%A9%20-%20%E4%B8%8D%E6%90%AD.mp3','audio/mpeg']],
             actor:"李荣浩",
-            lrc:''       
+            lrc:''
         }],
         nowSongId:0,
         timerHandle: function() {},
@@ -143,13 +143,13 @@
         playOtherSong:function(songNews){
             //新的一曲
 
-            console.log(songNews); 
+            console.log(songNews);
             this.dom.pause();
             this.changeSongSrc(songNews);
 
             //修改歌曲名
 
-            
+
             document.getElementById("songTitle").innerHTML = songNews.title;
             //清空歌词
             this.lrcFactory.clear();
@@ -159,7 +159,7 @@
             this.lrcFactory.changLrc(this.lrcData);
 
             this.progessBar.setPos(0);
-            document.getElementById("totalTime").innerHTML ="00:00";            
+            document.getElementById("totalTime").innerHTML ="00:00";
             document.getElementById("timer").innerHTML = timeFctory(this.dom.currentTime);
 
             //判断是否自动播放
@@ -173,7 +173,7 @@
                 document.getElementById("h5-play").querySelector("i").className = "ion-ios-play-outline";
                 // 停止进度条
                 player.stopTimer();
-            }           
+            }
         },
         getLrc:function(lrcDate){
             this.lrcData=lrcDate;
@@ -199,7 +199,7 @@
 
             if (parseInt(Hlib.getCurrentStyle(document.body,'width'))>=900 ) {
 
-                //音量默认值                
+                //音量默认值
                 this.dom.volume = this.volume;
 
                 // 音量条事件
@@ -213,7 +213,7 @@
                 }).afterChanged(function(x){
                     //alert(x);
                     self.dom.volume=x;
-                }); 
+                });
 
                 //音量调节UI
                 volumeUI = document.getElementById("h5p-volume");
@@ -252,7 +252,7 @@
             this.lrcFactory = new lrcScroll({
                 id: "lrcConP",
                 lrc: ""
-            });       
+            });
 
 
             Hlib.addEvent(this.dom,'canplay',function(){
@@ -280,24 +280,24 @@
 
            //歌曲数据开始加载
           Hlib.addEvent(self.dom,'loadstart',function(e){
-               
+
                     document.getElementById('loading').style.display="block";
-          
-            })    
+
+            })
 
           Hlib.addEvent(self.dom,'progress',function(e){
-        
-            })                  
+
+            })
           //歌曲数据加载完成
           Hlib.addEvent(self.dom,'loadeddata',function(e){
                 document.getElementById('loading').style.display="none";
-            })                  
+            })
 
-         
+
             //下一曲事件
             Hlib.addEvent(document.getElementById("h5-next"),'click',function(){
                 var len=self.songList.length;
-                
+
                 if(self.nowSongId+1>=len){
                     self.nowSongId=0;
                 }else{
@@ -305,7 +305,7 @@
                 }
                 console.log(self.nowSongId);
 
-                self.playOtherSong(self.songList[self.nowSongId]);                
+                self.playOtherSong(self.songList[self.nowSongId]);
             });
 
             //上一曲事件
@@ -318,22 +318,22 @@
                 }
 
                 console.log(self.nowSongId);
-                self.playOtherSong(self.songList[self.nowSongId]);                
-            });   
+                self.playOtherSong(self.songList[self.nowSongId]);
+            });
 
             //列表展示
             Hlib.addEvent(document.getElementById("songList"),'click',function(){
                 document.getElementById("maskLayer").style.display="block";
-                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0.6)";                
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0.6)";
                 document.getElementById("bundleDioalg").style.bottom="0px";
-            });    
+            });
 
             //列表关闭
             Hlib.addEvent(document.getElementById("closeList"),'click',function(){
                 document.getElementById("maskLayer").style.display="none";
-                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";                                
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";
                 document.getElementById("bundleDioalg").style.bottom="-100%";
-            });     
+            });
 
 
             //列表点击
@@ -341,12 +341,12 @@
                 var sid=this.getAttribute("sid");
                 console.log(sid);
                 self.nowSongId=parseInt(sid);
-                          
+
                 self.playOtherSong(self.songList[sid]);
                 document.getElementById("maskLayer").style.display="none";
-                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";                                
-                document.getElementById("bundleDioalg").style.bottom="-100%";                
-        
+                document.getElementById("maskLayer").style.backgroundColor="rgba(0, 0, 0, 0)";
+                document.getElementById("bundleDioalg").style.bottom="-100%";
+
             },document.getElementById('vList'));
 
             this.playOtherSong(self.songList[0]);

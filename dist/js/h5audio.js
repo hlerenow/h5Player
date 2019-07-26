@@ -28,14 +28,14 @@ h5audio=function(config){
 
 	this.addEvent(this._audioObj,'canplaythrough',function(){
 		alert("oncanplaythrough");
-		self._sourceState=2;		
-	});	
+		self._sourceState=2;
+	});
 
 	this.addEvent(window,'touchstart',function(){
 		alert("5");
 
 		self._audioObj.play();
-	});	
+	});
 
 	this._eventBeforePlayBegin=function(){};
 	this._eventAfterPlayEnd=function(){};
@@ -84,8 +84,8 @@ h5audio.fn.play=function(){
 	var handle=setInterval(function(){
 			if(self._sourceState===2){
 
-				self._audioObj.play();	
-				clearInterval(handle);			
+				self._audioObj.play();
+				clearInterval(handle);
 			}
 	},1000);
 }
@@ -141,6 +141,6 @@ h5audio.fn.totalTime=function(){
 	return this._audioObj.durationtime;
 }
 
-var cd=h5audio().setSource([['http://www.h-five.com/MP3/xijuzhiwang.mp3','audio/mpeg'
+var cd = h5audio().setSource([['http://statics.h-five.com/mp3/%E5%96%9C%E5%89%A7%E4%B9%8B%E7%8E%8B-%E6%9D%8E%E8%8D%A3%E6%B5%A9.mp3','audio/mpeg'
 	]]).play();
 
